@@ -1,0 +1,23 @@
+services:
+  erpc:
+    image: "ghcr.io/erpc/erpc:0.0.17"
+    entrypoint: "/entry.sh"
+    ports:
+      - "9545:9545"
+    environment:
+      RPC_1: "${RPC_1}"
+      RPC_2: "${RPC_2}"
+      RPC_3: "${RPC_3}"
+      RPC_4: "${RPC_4}"
+      RPC_5: "${RPC_5}"
+    volumes:
+      - "./entrypoints/erpc-generate.sh:/entry.sh:ro"
+    depends_on:
+      - "redis"
+
+  redis:
+    image: "redis:7.4"
+    entrypoint: "/entry.sh"
+    volumes:
+      - "./entrypoints/redis-generate.sh:/entry.sh:ro"
+      - "./data:/data"
