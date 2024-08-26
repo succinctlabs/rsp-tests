@@ -8,6 +8,34 @@ RSP requires an archive node to operate, which makes it difficult to set up loca
 
 The solution here is to build an [erpc](https://github.com/erpc/erpc) instance with a pre-populated persistent cache. The cache contains data for all the requests that would be made by RSP when running against the [target blocks](./blocks.json), and therefore enables RSP to run completely offline.
 
+## Using the cache
+
+> [!TIP]
+>
+> The cache that works for the latest version of RPS against the [target blocks](./blocks.json) is always checked-in to this repository, so [generating a new cache](#generating-cache) is optional.
+
+Clone the repository (use shallow clone to avoid cloning all the historical caches):
+
+```console
+git clone --depth 1 https://github.com/succinctlabs/rsp-tests
+```
+
+Then, with [Docker Compose](https://docs.docker.com/compose/) installed, run this command inside the repository to bring up the cached `erpc` instance:
+
+```console
+docker compose up -d
+```
+
+The `erpc` instance would be listening on `0.0.0.0:9545`. The RPC URL for any [supported chain](./blocks.json) is `http://localhost:9545/main/evm/${CHAIN_ID}`.
+
+For example, you may run `rsp` with:
+
+```console
+rsp --block-number 18884864 --rpc-url http://localhost:9545/main/evm/1
+```
+
+which would execute successfully despite not configuring any upstream RPC, as the cache has been populated with all requests needed.
+
 ## Generating cache
 
 To generate a new cache, make sure you've installed:
@@ -27,11 +55,17 @@ Once `erpc` is running, execute the generation script:
 ./scripts/generate.sh
 ```
 
-When the script successfully executes, bring down the Docker Compose stack to have Redis write to disk. The resulting `./data/dump.rdb` file is the new cache.
+When the script successfully executes, bring down the Docker Compose stack to have Redis write to disk:
+
+```console
+docker compose down
+```
+
+The resulting `./data/dump.rdb` file is the new cache.
 
 ## Configuring RPC
 
-RPC must be configured To [generate a new cache](#generating-cache). It can also be optionally used when using the cache to provide a fallback for requests not already covered by the cache.
+RPC must be configured To [generate a new cache](#generating-cache). It can also be optionally used when [using the cache](#using-the-cache) to provide a fallback for requests not already covered by the cache.
 
 To set up RPC upstreams, simply populate the [.env file](./.env). For example:
 

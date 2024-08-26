@@ -17,7 +17,5 @@ services:
 
   redis:
     image: "redis:7.4"
-    entrypoint: "/entry.sh"
     volumes:
-      - "./entrypoints/redis-generate.sh:/entry.sh:ro"
       - "./data:/data"
