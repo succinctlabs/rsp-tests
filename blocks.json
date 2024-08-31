@@ -2,11 +2,15 @@
   "chains": [
     {
       "chain_id": 1,
-      "block_numbers": [18884864]
+      "block_numbers": [18884864, 20600000]
     },
     {
       "chain_id": 10,
       "block_numbers": [122853660]
+    },
+    {
+      "chain_id": 59144,
+      "block_numbers": [5600000]
     }
   ]
 }

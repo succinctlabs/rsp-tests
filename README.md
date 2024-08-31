@@ -63,6 +63,10 @@ docker compose down
 
 The resulting `./data/dump.rdb` file is the new cache.
 
+> [!TIP]
+>
+> `erpc` does not cache responses when block finality is unknown, so the first few responses might not be persisted. Run the generation script twice to ensure cache integrity.
+
 ## Configuring RPC
 
 RPC must be configured To [generate a new cache](#generating-cache). It can also be optionally used when [using the cache](#using-the-cache) to provide a fallback for requests not already covered by the cache.
