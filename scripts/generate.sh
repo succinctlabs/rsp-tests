@@ -32,8 +32,8 @@ while [ $IND_CHAIN -lt $CHAIN_COUNT ]; do
 
     rsp --rpc-url "http://localhost:9545/main/evm/${CHAIN_ID}" --block-number $BLOCK_NUMBER
 
-    IND_BLOCK=$((++IND_BLOCK))
+    IND_BLOCK=$((IND_BLOCK+1))
   done
 
-  IND_CHAIN=$((++IND_CHAIN))
+  IND_CHAIN=$((IND_CHAIN+1))
 done

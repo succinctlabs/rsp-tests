@@ -40,8 +40,9 @@ if [ -n "$RPC_5" ]; then
 fi
 
 # Always add in a fake endpoint just to satisfy erpc's requirement of having at least one upstream
-# for each network.
-cat << EOF >> /root/erpc.yaml
+# for each network unless configured not to do so.
+if [ -z "$NO_CATCH_ALL" ]; then
+  cat << EOF >> /root/erpc.yaml
       - endpoint: evm+alchemy://________________________________
         failsafe:
           circuitBreaker:
@@ -55,5 +56,6 @@ cat << EOF >> /root/erpc.yaml
             successThresholdCount: 100
             successThresholdCapacity: 100
 EOF
+fi
 
 exec /root/erpc-server

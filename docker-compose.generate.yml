@@ -1,6 +1,6 @@
 services:
   erpc:
-    image: "ghcr.io/erpc/erpc:0.0.17"
+    image: "ghcr.io/succinctlabs/erpc:0.0.19"
     entrypoint: "/entry.sh"
     ports:
       - "9545:9545"
@@ -10,6 +10,7 @@ services:
       RPC_3: "${RPC_3}"
       RPC_4: "${RPC_4}"
       RPC_5: "${RPC_5}"
+      NO_CATCH_ALL: "1"
     volumes:
       - "./entrypoints/erpc.sh:/entry.sh:ro"
     depends_on:
