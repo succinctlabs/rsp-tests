@@ -11,6 +11,10 @@
     {
       "chain_id": 59144,
       "block_numbers": [5600000]
+    },
+    {
+      "chain_id": 11155111,
+      "block_numbers": [6804324, 7838305]
     }
   ]
 }
