@@ -1,5 +1,7 @@
 services:
   erpc:
+    # The 0.0.19 ARM64 image can exit with SIGSEGV during offline replay.
+    platform: linux/amd64
     image: "ghcr.io/succinctlabs/erpc:0.0.19"
     entrypoint: "/entry.sh"
     ports:

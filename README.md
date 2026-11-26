@@ -36,6 +36,18 @@ rsp --block-number 18884864 --rpc-url http://localhost:9545/main/evm/1
 
 which would execute successfully despite not configuring any upstream RPC, as the cache has been populated with all requests needed.
 
+## Extending the cache
+
+To record an additional block, add it to `blocks.json` and configure an archive RPC for its chain. Start the standard Compose stack with `docker compose up -d` to load the existing dump. Run RSP against the local endpoint, then stop the stack with `docker compose down` to save the updated dump.
+
+This command records the Sepolia validator deposit fixture.
+
+```console
+rsp --chain-id 11155111 --rpc-url http://localhost:9545/main/evm/11155111 --block-number 7838305
+```
+
+Clear the upstream RPC settings and restart the stack. Repeat the same command and check the block hash against `0xea358d1c41871011be3a5dd06c3a44df3ce9cb7456d3f916d96c085f938b365b`.
+
 ## Generating cache
 
 To generate a new cache, make sure you've installed:
